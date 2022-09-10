@@ -1,0 +1,48 @@
+ *************   html layout **********
+
+ header printing "Rock Paper scissors"
+
+ players group
+  - group header "Players selection"
+  -button "Rock"
+  - button "Paper" 
+  - button "Scissors"
+
+computers group
+  - group header "Computer's selection"
+  - span "Rock"
+  - span "Paper"
+  - span "Scissors"
+
+score group 
+  - player score group
+    - group header "Player score"
+    - span {playersScore}
+
+  - computer score group
+    - group header "Computer score"
+    - span {computerScore}
+
+round-winner group
+  - used to announce the winner of the round
+
+game-winner group
+  - used to announce the winner of the game
+
+ 
+ *********  javascript psuedo code **************
+
+
+ button for each option of rock paper scissors for player to select
+ store players selection in a variable 
+ have an choice array of all options "rock" "paper" "scissors"
+ set the value of the computer's selection randomly 
+ to randomly select from an index of the choice array
+ compare player selection to computer selection
+ declare the winner 
+ if won print "You win! {playerSelection} beats {computerSelection} 
+  - add a point to player's score
+ if lost print "You lose! {computerSelection} beats {playerSelection}
+  - add point to computer's score
+ if player wins 5 times then print "You have won the game"
+ if computer wins 5 times then print "Game over You have lost the game" 

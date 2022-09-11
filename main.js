@@ -1,14 +1,36 @@
-// DOM VARIABLES
-const rockBtn = document.getElementById("rock-btn");
-const paperBtn = document.getElementById("paper-btn");
-const scissorBtn = document.getElementById("scissors-btn");
-const playerScoreCard = document.getElementById("player-score-card");
-const computerScoreCard = document.getElementById("computer-score-card");
-
-// GLOBAL VARIABLES
 const choices = ["rock", "paper", "scissors"];
-let playerScore = 0;
-let computerScore = 0;
+
+
+function getComputerChoice() {
+  let index = random(choices.length);
+  let choice = choices[index];
+  return choice;
+}
+
+function random(number) {
+  return Math.floor(Math.random() * number);
+}
+
+function gameRound(playerChoice, computerChoice) {
+  playerChoice = playerChoice.toLowerCase();
+  computerChoice = computerChoice.toLowerCase();
+  console.log(computerChoice);
+  if (
+    playerChoice === "rock" && computerChoice === "scissors" ||
+    playerChoice === "paper" && computerChoice === "rock" ||
+    playerChoice === "scissors" && computerChoice === "paper"
+  ) {
+    console.log(`You win the round! ${playerChoice} beats ${computerChoice}`);
+  }
+  else if (
+    computerChoice === "rock" && playerChoice === "scissors" ||
+    computerChoice === "paper" && playerChoice === "rock" ||
+    computerChoice === "scissors" && playerChoice === "paper"
+  ) {
+    console.log(`You lose this round. ${computerChoice} beats ${playerChoice}`);
+  }
+  else console.log("You tied with the computer");
+}
 
 
 

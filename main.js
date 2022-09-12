@@ -1,5 +1,6 @@
 const computerSelectionDiv = document.getElementById("computer-selection");
 const playerSeletionDiv = document.getElementById("player-selection"); 
+const winnerDiv = document.getElementById("round-winner");
 const computerScoreSpan= document.getElementById("computer-score");
 const playerScoreSpan = document.getElementById("player-score");
 
@@ -79,7 +80,8 @@ function gameRound(playerChoice, computerChoice) {
 
   playerChoice = playerChoice.toLowerCase();
   computerChoice = computerChoice.toLowerCase();
-  console.log(`player choice: ${playerChoice} \n computer choice: ${computerChoice}`)
+  let winnerHeader = document.createElement("h3");
+  let winnerSpan = document.createElement("span");
   
   if (
     playerChoice === "rock" && computerChoice === "scissors" ||
@@ -87,7 +89,10 @@ function gameRound(playerChoice, computerChoice) {
     playerChoice === "scissors" && computerChoice === "paper"
   ) {
     playerScore += 1;
-    console.log(`You win the round! ${playerChoice} beats ${computerChoice} \n player score: ${playerScore}`);
+    winnerHeader.textContent = "You win this round!";
+    winnerSpan.textContent = `${playerChoice} beats ${computerChoice}`;
+    winnerDiv.append(winnerHeader);
+    winnerDiv.append(winnerSpan);
   }
   else if (
     computerChoice === "rock" && playerChoice === "scissors" ||
@@ -95,9 +100,15 @@ function gameRound(playerChoice, computerChoice) {
     computerChoice === "scissors" && playerChoice === "paper"
   ) {
     computerScore += 1;
-    console.log(`You lose this round. ${computerChoice} beats ${playerChoice} \n computer score: ${computerScore}`);
+    winnerHeader.textContent = "You lost this round!";
+    winnerSpan.textContent = `${computerChoice} beats ${playerChoice}`;
+    winnerDiv.append(winnerHeader);
+    winnerDiv.append(winnerSpan);
   }
-  else console.log("You tied with the computer");
+  else {
+    winnerHeader.textContent = "It was a tie";
+    winnerDiv.append(winnerHeader);
+  }
   
   scoreboard(playerScore, computerScore);
   checkScore(playerScore, computerScore);  

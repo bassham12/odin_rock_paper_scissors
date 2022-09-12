@@ -15,39 +15,35 @@ const scissorsBtn = document.getElementById("scissors-btn");
 const newGameBtn = document.getElementById("new-game-btn");
 
 
-
-
 const choices = ["rock", "paper", "scissors"];
 let playerScore = 0;
 let computerScore = 0;
 
 
 newGameBtn.addEventListener('click', () => {
-  gameOverHeader.textContent = "";
   resetScore();
   game();
 });
 
 function game() {
+  computerSelectionDiv.style.display = "block";
+  playerSeletionDiv.style.display = "block";
 
   rockBtn.addEventListener('click', () => {
     let playerChoice = rockBtn.value;
-    
-    computerSelectionDiv.lastChild.textContent = "";
+    computerSelectionDiv.lastChild.remove();
     gameRound(playerChoice);
   });
 
   paperBtn.addEventListener('click', () => {
     let playerChoice = paperBtn.value;
-
-    computerSelectionDiv.lastChild.textContent = "";
+    computerSelectionDiv.lastChild.remove();
     gameRound(playerChoice);
   });
 
   scissorsBtn.addEventListener('click', () => {
     let playerChoice = scissorsBtn.value;
-
-    computerSelectionDiv.lastChild.textContent = "";
+    computerSelectionDiv.lastChild.remove();
     gameRound(playerChoice);
   });
 
@@ -61,7 +57,7 @@ function gameRound(playerChoice) {
   let roundWinner = getRoundWinner(playerChoice, computerChoice);
   let isFinalScore = finalScore(playerScore, computerScore);
   
-
+  
   if (!isFinalScore) {
     if (roundWinner === "player") {
       playerScore += 1;
@@ -99,8 +95,17 @@ function endGame(playerScore, computerScore) {
   if (computerScore === 5) {
     message = "You have lost the game";
   }
-  gameOverHeader.textContent = message;
-  computerSelectionDiv.lastChild.textContent = "";
+
+  winnerSpan.textContent = "";
+  winnerHeader.textContent = message;
+  winnerDiv.append(winnerHeader);
+  computerSelectionDiv.style.display = "none";
+  playerSeletionDiv.style.display = "none";
+
+}
+
+function resetGame() {
+  resetScore()
 }
 
 
@@ -132,6 +137,7 @@ function resetScore() {
 
 function finalScore(playerScore, computerScore) {
   if (playerScore == 5 || computerScore == 5) {
+    endGame();
     return true;
   }
   else return false;  

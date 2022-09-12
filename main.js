@@ -3,6 +3,7 @@ const playerSeletionDiv = document.getElementById("player-selection");
 const winnerDiv = document.getElementById("round-winner");
 
 const winnerHeader = document.createElement("h3");
+const gameOverHeader = document.getElementById("gameover-header");
 
 const winnerSpan = document.createElement("span");
 const computerScoreSpan= document.getElementById("computer-score");
@@ -43,6 +44,54 @@ function game() {
   scoreboard(playerScore, computerScore);
 }
 
+/**************** Game Round *******************/
+
+function gameRound(playerChoice, computerChoice) {
+  let roundWinner = getRoundWinner(playerChoice, computerChoice);
+
+  if (roundWinner === "player")  {
+    playerScore += 1;
+    winnerHeader.textContent = "You win this round!";
+    winnerSpan.textContent = `${playerChoice} beats ${computerChoice}`;
+    
+  }
+  else if (roundWinner === "computer")  {
+    computerScore += 1;
+    winnerHeader.textContent = "You lost this round!";
+    winnerSpan.textContent = `${computerChoice} beats ${playerChoice}`;
+  }
+  else {
+    winnerHeader.textContent = "It was a tie";
+    winnerSpan.textContent = "";    
+  }
+  winnerDiv.append(winnerHeader);
+  winnerDiv.append(winnerSpan);
+  
+  let isFinalScore = finalScore(playerScore, computerScore);
+  scoreboard(playerScore, computerScore);
+  if (isFinalScore) {
+    endGame(playerScore, computerScore);
+  }  
+}
+
+/**************** End of Game ********************/
+
+function endGame(playerScore, computerScore) {
+  let message = "";
+
+  if (playerScore === 5) {
+    message = "You have won the game";
+  }
+  if (computerScore === 5) {
+    message = "You have lost the game";
+  }
+  gameOverHeader.textContent = message;
+  resetScore();
+}
+
+
+/*************computer choice *********************/
+
 function getComputerChoice() {
   let index = random(choices.length);
   let choice = choices[index];
@@ -56,21 +105,46 @@ function random(number) {
   return Math.floor(Math.random() * number);
 }
 
+
+
+function getRoundWinner(playerChoice, computerChoice) {
+  playerChoice = playerChoice.toLowerCase();
+  computerChoice = computerChoice.toLowerCase();
+  let winner;
+
+   if (
+    playerChoice === "rock" && computerChoice === "scissors" ||
+    playerChoice === "paper" && computerChoice === "rock" ||
+    playerChoice === "scissors" && computerChoice === "paper"
+   ) {
+     winner = "player";
+  }
+  else if (
+    computerChoice === "rock" && playerChoice === "scissors" ||
+    computerChoice === "paper" && playerChoice === "rock" ||
+    computerChoice === "scissors" && playerChoice === "paper"
+   ) {
+    winner = "computer";
+  }
+  else {
+    winner = "tie";
+  }
+  return winner;
+}
+
+/**************** Scoring *******************/
+
+
 function resetScore() {
   playerScore = 0;
   computerScore = 0;
 }
 
-function checkScore(playerScore, computerScore) {
-  if (playerScore == 5) {
-    resetScore();
-    console.log("player won");
+function finalScore(playerScore, computerScore) {
+  if (playerScore == 5 || computerScore == 5) {
+    return true;
   }
-  if (computerScore == 5) {
-    resetScore();
-    console.log("computer won");
-  }
-  
+  else return false;  
 }
 
 function scoreboard(playerScore, computerScore) {
@@ -78,46 +152,13 @@ function scoreboard(playerScore, computerScore) {
   computerScoreSpan.textContent = computerScore;
 }
 
-function gameRound(playerChoice, computerChoice) {
-
-  playerChoice = playerChoice.toLowerCase();
-  computerChoice = computerChoice.toLowerCase();
-  
-  if (
-    playerChoice === "rock" && computerChoice === "scissors" ||
-    playerChoice === "paper" && computerChoice === "rock" ||
-    playerChoice === "scissors" && computerChoice === "paper"
-  ) {
-    playerScore += 1;
-    winnerHeader.textContent = "You win this round!";
-    winnerSpan.textContent = `${playerChoice} beats ${computerChoice}`;
-    winnerDiv.append(winnerHeader);
-    winnerDiv.append(winnerSpan);
-  }
-  else if (
-    computerChoice === "rock" && playerChoice === "scissors" ||
-    computerChoice === "paper" && playerChoice === "rock" ||
-    computerChoice === "scissors" && playerChoice === "paper"
-  ) {
-    computerScore += 1;
-    winnerHeader.textContent = "You lost this round!";
-    winnerSpan.textContent = `${computerChoice} beats ${playerChoice}`;
-    winnerDiv.append(winnerHeader);
-    winnerDiv.append(winnerSpan);
-  }
-  else {
-    winnerHeader.textContent = "It was a tie";
-    winnerSpan.textContent = "";
-    winnerDiv.append(winnerHeader);
-
-  }
-  
-  scoreboard(playerScore, computerScore);
-  checkScore(playerScore, computerScore);  
-}
-
 
 game();
+
+
+
+
+
 
 
 

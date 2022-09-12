@@ -22,12 +22,13 @@ let computerScore = 0;
 
 newGameBtn.addEventListener('click', () => {
   resetScore();
-  game();
+  game(playerScore, computerScore);
 });
 
-function game() {
+function game(playerScore, computerScore) {
   computerSelectionDiv.style.display = "block";
   playerSeletionDiv.style.display = "block";
+
 
   rockBtn.addEventListener('click', () => {
     let playerChoice = rockBtn.value;
@@ -104,9 +105,7 @@ function endGame(playerScore, computerScore) {
 
 }
 
-function resetGame() {
-  resetScore()
-}
+
 
 
 /*************computer choice *********************/

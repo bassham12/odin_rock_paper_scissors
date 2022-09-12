@@ -24,21 +24,34 @@ scissorsBtn.addEventListener('click', () => {
   gameRound(playerChoice, getComputerChoice());
 });
 
+function resetScore() {
+  playerScore = 0;
+  computerScore = 0;
+}
+
 function getComputerChoice() {
   let index = random(choices.length);
   let choice = choices[index];
   return choice;
 }
 
-function incrementScore(score) {
-  score++;
-  return score;
-}
 
 function random(number) {
   return Math.floor(Math.random() * number);
 }
 
+function checkScore(playerScore, computerScore) {
+  if (playerScore == 5) {
+    playerScore = 0;
+    computerScore = 0;
+    console.log("player won");
+  }
+  if (computerScore == 5) {
+    playerScore = 0;
+    computerScore = 0;
+    console.log("computer won");
+  }
+}
 
 function gameRound(playerChoice, computerChoice) {
 
@@ -59,9 +72,12 @@ function gameRound(playerChoice, computerChoice) {
     computerChoice === "paper" && playerChoice === "rock" ||
     computerChoice === "scissors" && playerChoice === "paper"
   ) {
-    console.log(`You lose this round. ${computerChoice} beats ${playerChoice}`);
+    computerScore += 1;
+    console.log(`You lose this round. ${computerChoice} beats ${playerChoice} \n computer score: ${computerScore}`);
   }
   else console.log("You tied with the computer");
+  
+  checkScore(playerScore, computerScore);
 }
 
 

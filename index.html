@@ -13,25 +13,25 @@
 
     <div class="selection-group" id="player-selection">
       <h2 class="players-header">Players Selection</h2>
-      <button class="btn" id="rock-btn">Rock</button>
-      <button class="btn" id="paper-btn">Paper</button>
-      <button class="btn" id="scissors-btn">Scissors</button>
+      <div class="input-container">
+        <button class="btn" id="rock-btn" value="rock">Rock</button>
+        <button class="btn" id="paper-btn" value="paper">paper</button>
+        <button class="btn" id="scissors-btn" value="scissors">scissors</button>
     </div>
 
     <div class="selection-group" id="computer-selection">
-      <h2 class="computer-header">Computers Selection</h2>
-      <div class="card"><span>Rock</span></div>
-      <div class="card"><span>Paper</span></div>
-      <div class="card"><span>Scissors</span></div>
+      <h2 class="computer-header">Computer's Selection</h2>
     </div>
 
     <div class="score-group">
       <div class="score-card" id="player-score-card">
         <h3 class="score-header" id="player-score-header">Player Score</h3>
+        <span class="score" id="player-score"></span>
       </div>
-      
+
       <div class="score-card" id="computer-score-card">
         <h3 class="score-header" id="computer-score-header">Computer Score</h3>
+        <span class="score" id="computer-score"></span>
       </div>
     </div>
   </div>

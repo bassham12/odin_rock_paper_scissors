@@ -12,11 +12,18 @@ const playerScoreSpan = document.getElementById("player-score");
 const rockBtn = document.getElementById("rock-btn");
 const paperBtn = document.getElementById("paper-btn");
 const scissorsBtn = document.getElementById("scissors-btn");
+const newGameBtn = document.getElementById("new-game-btn");
 
 
 const choices = ["rock", "paper", "scissors"];
 let playerScore = 0;
 let computerScore = 0;
+
+
+newGameBtn.addEventListener('click', () => {
+  resetScore();
+  game();
+});
 
 function game() {
 
@@ -49,30 +56,33 @@ function game() {
 function gameRound(playerChoice, computerChoice) {
   let roundWinner = getRoundWinner(playerChoice, computerChoice);
 
-  if (roundWinner === "player")  {
-    playerScore += 1;
-    winnerHeader.textContent = "You win this round!";
-    winnerSpan.textContent = `${playerChoice} beats ${computerChoice}`;
+  if (playerScore < 6 || computerScore < 6) {
+    if (roundWinner === "player")  {
+      playerScore += 1;
+      winnerHeader.textContent = "You win this round!";
+      winnerSpan.textContent = `${playerChoice} beats ${computerChoice}`;
+      
+    }
+    else if (roundWinner === "computer")  {
+      computerScore += 1;
+      winnerHeader.textContent = "You lost this round!";
+      winnerSpan.textContent = `${computerChoice} beats ${playerChoice}`;
+    }
+    else {
+      winnerHeader.textContent = "It was a tie";
+      winnerSpan.textContent = "";    
+    }
+    winnerDiv.append(winnerHeader);
+    winnerDiv.append(winnerSpan);
     
+    let isFinalScore = finalScore(playerScore, computerScore);
+    scoreboard(playerScore, computerScore);
+    if (isFinalScore) {
+      endGame(playerScore, computerScore);
+    }  
   }
-  else if (roundWinner === "computer")  {
-    computerScore += 1;
-    winnerHeader.textContent = "You lost this round!";
-    winnerSpan.textContent = `${computerChoice} beats ${playerChoice}`;
-  }
-  else {
-    winnerHeader.textContent = "It was a tie";
-    winnerSpan.textContent = "";    
-  }
-  winnerDiv.append(winnerHeader);
-  winnerDiv.append(winnerSpan);
-  
-  let isFinalScore = finalScore(playerScore, computerScore);
-  scoreboard(playerScore, computerScore);
-  if (isFinalScore) {
-    endGame(playerScore, computerScore);
-  }  
 }
+  
 
 /**************** End of Game ********************/
 
@@ -86,7 +96,6 @@ function endGame(playerScore, computerScore) {
     message = "You have lost the game";
   }
   gameOverHeader.textContent = message;
-  resetScore();
 }
 
 
@@ -153,7 +162,6 @@ function scoreboard(playerScore, computerScore) {
 }
 
 
-game();
 
 
 

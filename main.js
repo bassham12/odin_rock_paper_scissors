@@ -1,5 +1,28 @@
-const choices = ["rock", "paper", "scissors"];
+const playerInput = document.getElementById("weapon");
+const playerSeletionDiv = document.getElementById("player-selection"); 
+const rockBtn = document.getElementById("rock-btn");
+const paperBtn = document.getElementById("paper-btn");
+const scissorsBtn = document.getElementById("scissors-btn");
 
+
+const choices = ["rock", "paper", "scissors"];
+let playerScore = 0;
+let computerScore = 0;
+
+rockBtn.addEventListener('click', () => {
+  let playerChoice = rockBtn.value;
+  gameRound(playerChoice, getComputerChoice());
+});
+
+paperBtn.addEventListener('click', () => {
+  let playerChoice = paperBtn.value;
+  gameRound(playerChoice, getComputerChoice());
+});
+
+scissorsBtn.addEventListener('click', () => {
+  let playerChoice = scissorsBtn.value;
+  gameRound(playerChoice, getComputerChoice());
+});
 
 function getComputerChoice() {
   let index = random(choices.length);
@@ -7,20 +30,29 @@ function getComputerChoice() {
   return choice;
 }
 
+function incrementScore(score) {
+  score++;
+  return score;
+}
+
 function random(number) {
   return Math.floor(Math.random() * number);
 }
 
+
 function gameRound(playerChoice, computerChoice) {
+
   playerChoice = playerChoice.toLowerCase();
   computerChoice = computerChoice.toLowerCase();
-  console.log(computerChoice);
+  console.log(`player choice: ${playerChoice} \n computer choice: ${computerChoice}`)
+  
   if (
     playerChoice === "rock" && computerChoice === "scissors" ||
     playerChoice === "paper" && computerChoice === "rock" ||
     playerChoice === "scissors" && computerChoice === "paper"
   ) {
-    console.log(`You win the round! ${playerChoice} beats ${computerChoice}`);
+    playerScore += 1;
+    console.log(`You win the round! ${playerChoice} beats ${computerChoice} \n player score: ${playerScore}`);
   }
   else if (
     computerChoice === "rock" && playerChoice === "scissors" ||
@@ -31,6 +63,9 @@ function gameRound(playerChoice, computerChoice) {
   }
   else console.log("You tied with the computer");
 }
+
+
+
 
 
 

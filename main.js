@@ -81,6 +81,7 @@ function gameRound(playerChoice) {
     scoreboard(playerScore, computerScore);
   }
   else endGame(playerScore, computerScore);
+
 }
   
 
@@ -96,6 +97,7 @@ function endGame(playerScore, computerScore) {
     message = "You have lost the game";
   }
   gameOverHeader.textContent = message;
+  computerSelectionDiv.remove();
 }
 
 

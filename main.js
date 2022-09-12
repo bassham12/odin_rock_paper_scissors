@@ -15,12 +15,15 @@ const scissorsBtn = document.getElementById("scissors-btn");
 const newGameBtn = document.getElementById("new-game-btn");
 
 
+
+
 const choices = ["rock", "paper", "scissors"];
 let playerScore = 0;
 let computerScore = 0;
 
 
 newGameBtn.addEventListener('click', () => {
+  gameOverHeader.textContent = "";
   resetScore();
   game();
 });
@@ -97,7 +100,7 @@ function endGame(playerScore, computerScore) {
     message = "You have lost the game";
   }
   gameOverHeader.textContent = message;
-  computerSelectionDiv.remove();
+  computerSelectionDiv.lastChild.textContent = "";
 }
 
 

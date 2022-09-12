@@ -1,6 +1,10 @@
 const computerSelectionDiv = document.getElementById("computer-selection");
 const playerSeletionDiv = document.getElementById("player-selection"); 
 const winnerDiv = document.getElementById("round-winner");
+
+const winnerHeader = document.createElement("h3");
+
+const winnerSpan = document.createElement("span");
 const computerScoreSpan= document.getElementById("computer-score");
 const playerScoreSpan = document.getElementById("player-score");
 
@@ -17,11 +21,9 @@ function game() {
 
   rockBtn.addEventListener('click', () => {
     let playerChoice = rockBtn.value;
-
     
     computerSelectionDiv.lastChild.textContent = "";
     gameRound(playerChoice, getComputerChoice());
-    
   });
 
   paperBtn.addEventListener('click', () => {
@@ -80,8 +82,6 @@ function gameRound(playerChoice, computerChoice) {
 
   playerChoice = playerChoice.toLowerCase();
   computerChoice = computerChoice.toLowerCase();
-  let winnerHeader = document.createElement("h3");
-  let winnerSpan = document.createElement("span");
   
   if (
     playerChoice === "rock" && computerChoice === "scissors" ||
@@ -107,7 +107,9 @@ function gameRound(playerChoice, computerChoice) {
   }
   else {
     winnerHeader.textContent = "It was a tie";
+    winnerSpan.textContent = "";
     winnerDiv.append(winnerHeader);
+
   }
   
   scoreboard(playerScore, computerScore);

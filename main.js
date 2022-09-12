@@ -1,5 +1,8 @@
 const computerSelectionDiv = document.getElementById("computer-selection");
 const playerSeletionDiv = document.getElementById("player-selection"); 
+const computerScoreSpan= document.getElementById("computer-score");
+const playerScoreSpan = document.getElementById("player-score");
+
 const rockBtn = document.getElementById("rock-btn");
 const paperBtn = document.getElementById("paper-btn");
 const scissorsBtn = document.getElementById("scissors-btn");
@@ -9,29 +12,33 @@ const choices = ["rock", "paper", "scissors"];
 let playerScore = 0;
 let computerScore = 0;
 
-rockBtn.addEventListener('click', () => {
-  let playerChoice = rockBtn.value;
-  
-  computerSelectionDiv.lastChild.textContent = "";
-  gameRound(playerChoice, getComputerChoice());
-  
-});
+function game() {
 
-paperBtn.addEventListener('click', () => {
-  let playerChoice = paperBtn.value;
+  rockBtn.addEventListener('click', () => {
+    let playerChoice = rockBtn.value;
 
-  computerSelectionDiv.lastChild.textContent = "";
-  gameRound(playerChoice, getComputerChoice());
-});
+    
+    computerSelectionDiv.lastChild.textContent = "";
+    gameRound(playerChoice, getComputerChoice());
+    
+  });
 
-scissorsBtn.addEventListener('click', () => {
-  let playerChoice = scissorsBtn.value;
+  paperBtn.addEventListener('click', () => {
+    let playerChoice = paperBtn.value;
 
-  computerSelectionDiv.lastChild.textContent = "";
-  gameRound(playerChoice, getComputerChoice());
-});
+    computerSelectionDiv.lastChild.textContent = "";
+    gameRound(playerChoice, getComputerChoice());
+  });
 
+  scissorsBtn.addEventListener('click', () => {
+    let playerChoice = scissorsBtn.value;
 
+    computerSelectionDiv.lastChild.textContent = "";
+    gameRound(playerChoice, getComputerChoice());
+  });
+
+  scoreboard(playerScore, computerScore);
+}
 
 function getComputerChoice() {
   let index = random(choices.length);
@@ -60,9 +67,13 @@ function checkScore(playerScore, computerScore) {
     resetScore();
     console.log("computer won");
   }
+  
 }
 
-
+function scoreboard(playerScore, computerScore) {
+  playerScoreSpan.textContent = playerScore;
+  computerScoreSpan.textContent = computerScore;
+}
 
 function gameRound(playerChoice, computerChoice) {
 
@@ -87,15 +98,13 @@ function gameRound(playerChoice, computerChoice) {
     console.log(`You lose this round. ${computerChoice} beats ${playerChoice} \n computer score: ${computerScore}`);
   }
   else console.log("You tied with the computer");
-
+  
   scoreboard(playerScore, computerScore);
-  
-  checkScore(playerScore, computerScore);
-  
+  checkScore(playerScore, computerScore);  
 }
 
 
-
+game();
 
 
 

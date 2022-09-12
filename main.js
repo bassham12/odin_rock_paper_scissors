@@ -31,21 +31,21 @@ function game() {
     let playerChoice = rockBtn.value;
     
     computerSelectionDiv.lastChild.textContent = "";
-    gameRound(playerChoice, getComputerChoice());
+    gameRound(playerChoice);
   });
 
   paperBtn.addEventListener('click', () => {
     let playerChoice = paperBtn.value;
 
     computerSelectionDiv.lastChild.textContent = "";
-    gameRound(playerChoice, getComputerChoice());
+    gameRound(playerChoice);
   });
 
   scissorsBtn.addEventListener('click', () => {
     let playerChoice = scissorsBtn.value;
 
     computerSelectionDiv.lastChild.textContent = "";
-    gameRound(playerChoice, getComputerChoice());
+    gameRound(playerChoice);
   });
 
   scoreboard(playerScore, computerScore);
@@ -53,34 +53,34 @@ function game() {
 
 /**************** Game Round *******************/
 
-function gameRound(playerChoice, computerChoice) {
+function gameRound(playerChoice) {
+  let computerChoice = getComputerChoice();
   let roundWinner = getRoundWinner(playerChoice, computerChoice);
+  let isFinalScore = finalScore(playerScore, computerScore);
+  
 
-  if (playerScore < 6 || computerScore < 6) {
-    if (roundWinner === "player")  {
+  if (!isFinalScore) {
+    if (roundWinner === "player") {
       playerScore += 1;
       winnerHeader.textContent = "You win this round!";
       winnerSpan.textContent = `${playerChoice} beats ${computerChoice}`;
       
     }
-    else if (roundWinner === "computer")  {
+    else if (roundWinner === "computer") {
       computerScore += 1;
       winnerHeader.textContent = "You lost this round!";
       winnerSpan.textContent = `${computerChoice} beats ${playerChoice}`;
     }
     else {
       winnerHeader.textContent = "It was a tie";
-      winnerSpan.textContent = "";    
+      winnerSpan.textContent = "";
     }
     winnerDiv.append(winnerHeader);
     winnerDiv.append(winnerSpan);
-    
-    let isFinalScore = finalScore(playerScore, computerScore);
+
     scoreboard(playerScore, computerScore);
-    if (isFinalScore) {
-      endGame(playerScore, computerScore);
-    }  
   }
+  else endGame(playerScore, computerScore);
 }
   
 
@@ -116,6 +116,29 @@ function random(number) {
 
 
 
+/**************** Scoring *******************/
+
+
+function resetScore() {
+  playerScore = 0;
+  computerScore = 0;
+}
+
+
+function finalScore(playerScore, computerScore) {
+  if (playerScore == 5 || computerScore == 5) {
+    return true;
+  }
+  else return false;  
+}
+
+
+function scoreboard(playerScore, computerScore) {
+  playerScoreSpan.textContent = playerScore;
+  computerScoreSpan.textContent = computerScore;
+}
+
+
 function getRoundWinner(playerChoice, computerChoice) {
   playerChoice = playerChoice.toLowerCase();
   computerChoice = computerChoice.toLowerCase();
@@ -140,27 +163,6 @@ function getRoundWinner(playerChoice, computerChoice) {
   }
   return winner;
 }
-
-/**************** Scoring *******************/
-
-
-function resetScore() {
-  playerScore = 0;
-  computerScore = 0;
-}
-
-function finalScore(playerScore, computerScore) {
-  if (playerScore == 5 || computerScore == 5) {
-    return true;
-  }
-  else return false;  
-}
-
-function scoreboard(playerScore, computerScore) {
-  playerScoreSpan.textContent = playerScore;
-  computerScoreSpan.textContent = computerScore;
-}
-
 
 
 
